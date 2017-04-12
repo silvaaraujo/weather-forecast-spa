@@ -46,15 +46,27 @@ weatherApp.controller('forecastController', ['$scope', '$resource', '$routeParam
     $scope.weatherAPI = $resource("http://api.openweathermap.org/data/2.5/forecast/daily?APPID=4d1bf31b2c3650979370d7a8bb0c9a59", 
                                   { callback: "JSON_CALLBACK" }, { get: { method: "JSONP" }});
     
-    $scope.weatherResult = $scope.weatherAPI.get({ q: $scope.city, cnt: $scope.days });
-    
-    console.info($scope.weatherResult);
-    
-    $scope.convertKelvinToCelcius = function(degreeKelvin) {
-        return Math.round(degreeKelvin - 273.15);
-    }
-    
-    $scope.toDate = function(dt) {
-        return new Date(dt * 1000);
-    }
+    $scope.weatherResult = $scope.weatherAPI.get({ q: $scope.city, cnt: $scope.days });        
 }]);
+
+
+weatherApp.directive('dayTimeTemp', function() {    
+    return {
+        templateUrl: 'directives/daytimetemp.html',
+        restrict: 'E',
+        scope: {
+            weather: '='
+        },
+        link: function(scope, element, attrs) {
+            
+            scope.kelvinToCelcius = function(degreeKelvin) {
+                return Math.round(degreeKelvin - 273.15);
+            }
+
+            scope.toDate = function(dt) {
+                return new Date(dt * 1000);
+            }
+            
+        }
+    }
+});

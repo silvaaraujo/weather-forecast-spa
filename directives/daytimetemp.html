@@ -1,0 +1,8 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ toDate(weather.dt) | date: 'dd/MM/yyyy' }}</h3>
+    </div>
+    <div class="panel-body">
+        Daytime - temperature: {{ kelvinToCelcius(weather.temp.day) }}
+    </div>
+</div>
